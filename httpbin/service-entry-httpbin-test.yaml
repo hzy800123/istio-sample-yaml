@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata: 
+  name: httpbin-ext
+spec: 
+  hosts: 
+  - httpbin.org  #外部访问的域名
+  ports: 
+  - number: 80  # 访问服务的端口和协议
+    name: http
+    protocol: HTTP
+  resolution: DNS # 服务发现的机制，STATIC,NONE
+  location: MESH_EXTERNAL # 网格内部还是外部 MESH_INTERNAL
+

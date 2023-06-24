@@ -1,0 +1,34 @@
+# name: httpbin-virtualservice-for-egressgateway
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata: 
+  name: vs-for-egressgateway-baidu
+spec: 
+  hosts: 
+  - baidu.com
+  gateways: 
+  - istio-egressgateway
+  - mesh
+  http: 
+  - match: 
+    - gateways: 
+      - mesh
+      port: 80
+    route: 
+    - destination: 
+        host: istio-egressgateway.istio-system.svc.cluster.local
+        subset: baidu
+        port: 
+          number: 80
+      weight: 100
+  - match: 
+    - gateways: 
+      - istio-egressgateway
+      port: 80
+    route: 
+    - destination: 
+        host: baidu.com
+        port: 
+          number: 80
+      weight: 100
+

@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-sms
+spec:
+  hosts:
+    - service-sms
+  http:
+  - route:
+    - destination:
+        host: service-sms
+        subset: v1
+      weight: 80
+    - destination:
+        host: service-sms
+        subset: v2
+      weight: 20

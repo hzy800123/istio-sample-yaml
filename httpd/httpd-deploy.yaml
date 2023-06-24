@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd1
+  labels:
+    server: httpd1
+    app: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      server: httpd1
+      app: web
+  template:
+    metadata:
+      name: httpd1
+      labels:
+        server: httpd1
+        app: web
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh","-c","echo 'hello-1' > /var/www/index.html;httpd -f -p 8080 -h /var/www"]
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd2
+  labels:
+    server: httpd2
+    app: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      server: httpd2
+      app: web
+  template:
+    metadata:
+      name: httpd2
+      labels:
+        server: httpd2
+        app: web
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh","-c","echo 'hello-2' > /var/www/index.html;httpd -f -p 8080 -h /var/www"]

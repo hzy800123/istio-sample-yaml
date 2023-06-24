@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: web-svc-vs
+spec:
+  hosts:
+  - web-svc
+  http:
+  - match:
+    - headers:
+        user-name:
+          exact: tester-A
+    route:
+    - destination:
+        host: httpd1-svc
+  - route:
+    - destination:
+        host: httpd2-svc
+

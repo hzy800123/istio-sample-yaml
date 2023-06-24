@@ -1,0 +1,34 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: service-passenger-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-passenger-vs
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - service-passenger-gateway
+  http:
+  - match:
+    - uri:
+        # exact: /passenger-test
+        prefix: /passenger
+    route:
+    - destination:
+        host: service-passenger
+        port:
+          number: 8021

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: service-sms-v1
+  labels:
+    version: v1  
+spec:
+  selector:
+    matchLabels:
+      app: service-sms
+      version: v1
+  # Number of replicas that will be created for this deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-sms
+        version: v1
+    spec:
+      containers:
+        - name: service-sms
+          # Image that will be used to containers in the cluster
+          image: hzy800123/service-sms-v1:latest
+          imagePullPolicy: Always
+          ports:
+            # The port that the container is running on in the cluster
+            - containerPort: 8001
+---
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: service-sms-v2
+  labels:
+    version: v2
+spec:
+  selector:
+    matchLabels:
+      app: service-sms
+      version: v2
+  # Number of replicas that will be created for this deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-sms
+        version: v2
+    spec:
+      containers:
+        - name: service-sms
+          # Image that will be used to containers in the cluster
+          image: hzy800123/service-sms-v2:latest
+          imagePullPolicy: Always
+          ports:
+            # The port that the container is running on in the cluster
+            - containerPort: 8001

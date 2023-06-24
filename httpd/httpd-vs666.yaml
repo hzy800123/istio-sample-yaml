@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: web-svc-vs666
+spec:
+  hosts:
+  - web-svc666
+  http:
+  - route:
+    - destination:
+        host: httpd1-svc
+      weight: 60
+    - destination:
+        host: httpd2-svc
+      weight: 40
+

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: service-passenger
+spec:
+  selector:
+    matchLabels:
+      app: service-passenger
+  # Number of replicas that will be created for this deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-passenger
+    spec:
+      containers:
+        - name: service-passenger
+          # Image that will be used to containers in the cluster
+          image: hzy800123/service-passenger:latest           
+          imagePullPolicy: Always
+          ports:
+            # The port that the container is running on in the cluster
+            - containerPort: 8021
