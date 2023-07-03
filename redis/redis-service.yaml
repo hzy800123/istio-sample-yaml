@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: devops-redis
+  name: srv-devops-redis
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 6379
+    targetPort: 6379
+    nodePort: 31379
+  selector:
+    app: devops-redis
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
